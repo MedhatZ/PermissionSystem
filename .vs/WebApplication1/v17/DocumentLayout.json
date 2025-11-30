@@ -1,0 +1,629 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\controllers\\requestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\controllers\\requestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\requests\\detailsr.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\requests\\detailsr.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\requests\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\requests\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\requests\\exportpdfreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\requests\\exportpdfreport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A47FD87B-4BC9-4999-8E00-E1E2FF965507}|PermissionSystemApi\\PermissionSystemApi.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemapi\\controllers\\requestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A47FD87B-4BC9-4999-8E00-E1E2FF965507}|PermissionSystemApi\\PermissionSystemApi.csproj|solutionrelative:permissionsystemapi\\controllers\\requestscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Medhat\\AppData\\Local\\Temp\\VisualStudio\\copilot-vs\\plan-02780070-a2ef-457a-93cf-fbd568a768a2.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\review\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\review\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\shared\\error.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\dashboard\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\bulkupload\\bulkupload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\bulkupload\\bulkupload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\approvals\\history.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\approvals\\history.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\approvals\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\approvals\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\account\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\views\\account\\accessdenied.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\controllers\\reviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\controllers\\reviewcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\controllers\\bulkuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\controllers\\bulkuploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\controllers\\approvalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\controllers\\approvalscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\dto\\dashborddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\dto\\dashborddto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\userrequestspagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\userrequestspagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\reviewoverviewvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\reviewoverviewvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\recentrequestvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\recentrequestvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\periodicreviewpagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\periodicreviewpagevm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\pendingapprovalvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\pendingapprovalvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\loginvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\loginvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\dashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\dashboardvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\dashboardviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\dashboardstatsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\dashboardstatsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\approvalsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\approvalsvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\apisettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\apisettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\viewmodels\\activitylogvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\viewmodels\\activitylogvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\models\\ldaphelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\models\\ldaphelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|d:\\upwork\\permissionsystemnew\\webapplication1\\permissionsystemweb\\permissionsystemweb.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7C9E8AB1-B4A4-41E0-8C32-9208D236B173}|PermissionSystemWeb\\PermissionSystemWeb.csproj|solutionrelative:permissionsystemweb\\permissionsystemweb.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Account\\Login.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Account\\Login.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Account\\Login.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Account\\Login.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:52:50.384Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAjwFAAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:29:13.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Program.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Program.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Program.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Program.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAAwAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T12:24:24.568Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RequestsController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\RequestsController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Controllers\\RequestsController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\RequestsController.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Controllers\\RequestsController.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAkwH4AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:34:22.55Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RequestsController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemApi\\Controllers\\RequestsController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemApi\\Controllers\\RequestsController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemApi\\Controllers\\RequestsController.cs",
+              "RelativeToolTip": "PermissionSystemApi\\Controllers\\RequestsController.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAWwKsBAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-25T17:43:36.043Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\appsettings.json",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\appsettings.json",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\appsettings.json",
+              "RelativeToolTip": "PermissionSystemWeb\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-24T12:18:12.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DetailsR.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Requests\\DetailsR.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Requests\\DetailsR.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Requests\\DetailsR.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Requests\\DetailsR.cshtml",
+              "ViewState": "AgIAAMUBAAAAAAAAAAAAAMUBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T12:45:23.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Requests\\Index.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Requests\\Index.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Requests\\Index.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Requests\\Index.cshtml",
+              "ViewState": "AgIAACABAAAAAAAAAAAjwDkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T12:46:02.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ExportPdfReport.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Requests\\ExportPdfReport.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Requests\\ExportPdfReport.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Requests\\ExportPdfReport.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Requests\\ExportPdfReport.cshtml",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAiwIIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-25T19:18:57.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "plan-02780070-a2ef-457a-93cf-fbd568a768a2.md",
+              "DocumentMoniker": "C:\\Users\\Medhat\\AppData\\Local\\Temp\\VisualStudio\\copilot-vs\\plan-02780070-a2ef-457a-93cf-fbd568a768a2.md",
+              "ToolTip": "C:\\Users\\Medhat\\AppData\\Local\\Temp\\VisualStudio\\copilot-vs\\plan-02780070-a2ef-457a-93cf-fbd568a768a2.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-11-25T19:06:27.162Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Approvals\\Details.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Approvals\\Details.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Approvals\\Details.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Approvals\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:52:53.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "History.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Approvals\\History.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Approvals\\History.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Approvals\\History.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Approvals\\History.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:52:55.036Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "PermissionSystemWeb.csproj",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\PermissionSystemWeb.csproj",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\PermissionSystemWeb.csproj",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\PermissionSystemWeb.csproj",
+              "RelativeToolTip": "PermissionSystemWeb\\PermissionSystemWeb.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-24T12:09:13.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Review\\Index.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Review\\Index.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Review\\Index.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Review\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:53:45.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Error.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Shared\\Error.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Shared\\Error.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Shared\\Error.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Shared\\Error.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:53:47.729Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BulkUpload.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\BulkUpload\\BulkUpload.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\BulkUpload\\BulkUpload.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\BulkUpload\\BulkUpload.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\BulkUpload\\BulkUpload.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:53:15.114Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Dashboard\\Index.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Dashboard\\Index.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Dashboard\\Index.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Dashboard\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:53:35.066Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\_ViewImports.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:53:51.195Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AccessDenied.cshtml",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Account\\AccessDenied.cshtml",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Views\\Account\\AccessDenied.cshtml",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Views\\Account\\AccessDenied.cshtml",
+              "RelativeToolTip": "PermissionSystemWeb\\Views\\Account\\AccessDenied.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-24T11:52:47.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ReviewController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\ReviewController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Controllers\\ReviewController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\ReviewController.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Controllers\\ReviewController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:34:35.138Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\DashboardController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Controllers\\DashboardController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\DashboardController.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Controllers\\DashboardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:34:03.026Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BulkUploadController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\BulkUploadController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Controllers\\BulkUploadController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\BulkUploadController.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Controllers\\BulkUploadController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:33:26.607Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "DashbordDTO.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\DTO\\DashbordDTO.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\DTO\\DashbordDTO.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\DTO\\DashbordDTO.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\DTO\\DashbordDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:53.93Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "UserRequestsPageVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\UserRequestsPageVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\UserRequestsPageVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\UserRequestsPageVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\UserRequestsPageVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:43.573Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ReviewOverviewVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ReviewOverviewVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\ReviewOverviewVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ReviewOverviewVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\ReviewOverviewVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:41.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ApprovalsController.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\ApprovalsController.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Controllers\\ApprovalsController.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Controllers\\ApprovalsController.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Controllers\\ApprovalsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:29:58.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "RecentRequestVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\RecentRequestVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\RecentRequestVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\RecentRequestVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\RecentRequestVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:38.475Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "PeriodicReviewPageVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\PeriodicReviewPageVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\PeriodicReviewPageVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\PeriodicReviewPageVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\PeriodicReviewPageVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:33.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "PendingApprovalVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\PendingApprovalVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\PendingApprovalVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\PendingApprovalVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\PendingApprovalVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:25.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "LoginVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\LoginVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\LoginVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\LoginVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\LoginVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:22.487Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "DashboardVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\DashboardVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\DashboardVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\DashboardVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\DashboardVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:13.102Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "DashboardViewModel.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\DashboardViewModel.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\DashboardViewModel.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\DashboardViewModel.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\DashboardViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:09.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "DashboardStatsVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\DashboardStatsVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\DashboardStatsVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\DashboardStatsVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\DashboardStatsVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:32:02.12Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "ApprovalsVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ApprovalsVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\ApprovalsVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ApprovalsVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\ApprovalsVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:31:56.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "ApiSettings.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ApiSettings.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\ApiSettings.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ApiSettings.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\ApiSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:31:49.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ActivityLogVm.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ActivityLogVm.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ViewModels\\ActivityLogVm.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ViewModels\\ActivityLogVm.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ViewModels\\ActivityLogVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:31:35.854Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "LdapHelper.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\LdapHelper.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\LdapHelper.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\LdapHelper.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\LdapHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:30:57.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "PermissionSystemWeb\\Models\\ErrorViewModel.cs",
+              "ToolTip": "D:\\upwork\\PermissionSystemNew\\WebApplication1\\PermissionSystemWeb\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "PermissionSystemWeb\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-24T11:27:58.024Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

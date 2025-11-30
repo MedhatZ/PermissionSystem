@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "PermissionSystemApi\\PermissionSystemApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "PermissionSystemWeb\\PermissionSystemWeb.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

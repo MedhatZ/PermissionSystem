@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\upwork\PermissionSystemNew\WebApplication1\PermissionSystemApi\bin\Release\net9.0\publish\</_PublishTargetUrl>
+    <History>True|2025-11-27T11:38:28.3795190Z||;True|2025-11-27T13:08:47.7849585+02:00||;True|2025-11-27T11:07:16.9181423+02:00||;True|2025-11-27T08:30:22.5517936+02:00||;True|2025-11-26T14:36:52.7220299+02:00||;True|2025-11-26T14:23:54.0058779+02:00||;True|2025-11-25T22:09:18.8492140+02:00||;True|2025-11-24T13:08:05.0954454+02:00||;True|2025-11-24T12:44:52.4442355+02:00||;True|2025-11-24T12:36:27.0648115+02:00||;True|2025-11-24T12:26:33.7884177+02:00||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

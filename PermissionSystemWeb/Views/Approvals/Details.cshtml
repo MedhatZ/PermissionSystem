@@ -1,0 +1,319 @@
+﻿@model UserRequestVm
+
+@{
+    ViewData["Title"] = "Approval Details";
+    string role = ViewBag.Role?.ToString() ?? "";
+}
+
+<style>
+    .details-page {
+        max-width: 900px;
+        margin: 24px auto;
+        font-family: "Segoe UI", Roboto, Arial, sans-serif;
+        color: #1f2937;
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 12px;
+    }
+
+    .page-title {
+        margin: 0;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .page-subtitle {
+        margin: 0 0 16px 36px;
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+
+    .details-card {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+        padding: 20px;
+        border: 1px solid #e6eef7;
+        overflow: hidden;
+    }
+
+    .section-title {
+        margin: 0 0 12px 0;
+        font-size: 1.05rem;
+        color: #0f172a;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        margin-bottom: 14px;
+    }
+
+    .info-row {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .info-label {
+        font-size: 0.85rem;
+        color: #6b7280;
+    }
+
+    .info-value {
+        font-weight: 600;
+        color: #0f172a;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: white;
+    }
+
+    .status-pending { background: #f59e0b; }
+    .status-approved { background: #10b981; }
+    .status-rejected { background: #ef4444; }
+    .status-other { background: #64748b; }
+
+    .details-box {
+        background: #f8fafc;
+        padding: 14px;
+        border-radius: 8px;
+        border: 1px solid #e6eef7;
+        white-space: pre-wrap;
+        color: #0f172a;
+    }
+
+    .history-item {
+        padding: 10px;
+        border-left: 3px solid #e6eef7;
+        margin-bottom: 10px;
+        background: #ffffff;
+        border-radius: 6px;
+    }
+
+    .history-item strong { color: #111827; }
+    .history-item .text-sm { color: #6b7280; }
+
+    .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .action-buttons .btn {
+        min-width: 140px;
+    }
+
+   
+</style>
+
+<div class="details-page">
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="bi bi-eye-fill" style="color:#0284c7"></i>
+            Request Details
+        </h1>
+    </div>
+    <p class="page-subtitle">Review request information before taking action</p>
+
+    <div class="details-card">
+
+        <h3 class="section-title">Basic Information</h3>
+
+        <div class="info-grid">
+            <div class="info-row">
+                <span class="info-label">Request Number</span>
+                <span class="info-value">@Model.RequestNumber</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">System</span>
+                <span class="info-value">@Model.SystemName</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Status</span>
+                <span class="info-value">
+                    @{
+                        var status = (Model.Status ?? "").ToLowerInvariant();
+                        var css = status switch
+                        {
+                            "pending" => "status-pending",
+                            "approved" => "status-approved",
+                            "rejected" => "status-rejected",
+                            _ => "status-other"
+                        };
+                    }
+                    <span class="status-badge @css">@Model.Status</span>
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Created</span>
+                <span class="info-value">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Last Updated</span>
+                <span class="info-value">@((Model.UpdatedAt.HasValue ? Model.UpdatedAt.Value.ToString("yyyy-MM-dd HH:mm") : "---"))</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Requester</span>
+                <span class="info-value">@(!string.IsNullOrEmpty(Model.RequestedBy) ? Model.RequestedBy : "---")</span>
+
+            </div>
+        </div>
+
+        <hr />
+
+        <h3 class="section-title">Request Details</h3>
+        <div class="details-box">
+            @Model.Details
+        </div>
+
+        <hr />
+
+        <h3 class="section-title">Request History</h3>
+
+        @if (Model.History != null && Model.History.Any())
+        {
+            foreach (var h in Model.History)
+            {
+                <div class="history-item">
+                    <div><strong>@h.Timestamp.ToString("yyyy-MM-dd HH:mm")</strong></div>
+                    <div>@h.Action</div>
+                    <div class="text-sm text-muted">By: @h.UserName</div>
+                    @if (!string.IsNullOrEmpty(h.Notes))
+                    {
+                        <div class="text-muted">Notes: @h.Notes</div>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <p>No history found.</p>
+        }
+
+        <hr />
+
+        <!-- APPROVAL BUTTONS -->
+        @{
+            var st = (Model.Status ?? "").ToLower();
+            bool canAct =
+            st == "pending" ||
+            st == "firstapproved";   // لسه محتاج Final Approval
+        }
+
+        @if (canAct)
+        {
+            <div class="action-buttons">
+                <button id="btnApprove" class="btn btn-success btn-lg"
+                        data-id="@Model.Id" data-system="@Model.SystemName">
+                    <i class="bi bi-check-circle"></i> Approve
+                </button>
+
+                <button id="btnReject" class="btn btn-danger btn-lg"
+                        data-id="@Model.Id" data-system="@Model.SystemName">
+                    <i class="bi bi-x-circle"></i> Reject
+                </button>
+
+                <a href="@Url.Action("Index", "Approvals")" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left-circle"></i> Back
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="mt-4">
+                <a href="@Url.Action("Index", "Approvals")" class="btn btn-outline-secondary btn-lg">
+                    <i class="bi bi-arrow-left-circle"></i> Back
+                </a>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    // APPROVE
+       $(document).on("click", "#btnApprove", function () {
+
+        let id = $(this).data("id");
+        let system = $(this).data("system");
+        let role = $(this).data("role");
+
+        // FIX → Remove any extra quotes
+        role = role.replace(/"/g, "");
+
+        let url = "";
+
+        if (role === "DirectManager") {
+            url = "/Approvals/ApproveFirst";
+        }
+        else if (role === "GM" || role === "FinalManager") {
+            url = "/Approvals/ApproveSecond";
+        }
+        else {
+            Swal.fire("Unauthorized", "You are not allowed to approve", "error");
+            return;
+        }
+
+        Swal.fire({
+            title: "Approve Request?",
+            icon: "question",
+            showCancelButton: true
+        }).then((res) => {
+            if (res.isConfirmed) {
+                $.post(url, { requestId: id, requestType: system })
+                    .done(() => Swal.fire("Approved!", "", "success")
+                        .then(() => window.location.href = "/Approvals/Index"));
+            }
+        });
+
+    });
+
+
+    // REJECT
+    $(document).on("click", "#btnReject", function () {
+        let id = $(this).data("id");
+        let system = $(this).data("system");
+
+        Swal.fire({
+            title: "Reject Request",
+            input: "text",
+            inputLabel: "Reason:",
+            showCancelButton: true,
+        }).then((res) => {
+            if (res.isConfirmed) {
+                $.post("@Url.Action("Reject", "Approvals")",{
+                    requestId: id,
+                    requestType: system,
+                    reason: res.value
+                }).done(() => {
+                    Swal.fire("Rejected", "", "success")
+                        .then(() => window.location.href = "/Approvals/Index");
+                });
+            }
+        });
+    });
+</script>

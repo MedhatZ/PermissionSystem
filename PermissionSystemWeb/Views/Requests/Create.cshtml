@@ -1,0 +1,232 @@
+﻿@model CreateRequestVm
+@{
+    ViewData["Title"] = "Create Request";
+}
+
+<link rel="stylesheet" href="~/css/requests.css" />
+
+<div class="page-header">
+    <h1 class="page-title">
+        <i class="bi bi-plus-circle-fill" style="color: #3b82f6;"></i>
+        Create New Permission Request
+    </h1>
+    <p class="page-subtitle">Fill out the form below to submit a new permission request</p>
+</div>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert-modern success">
+        <i class="bi bi-check-circle-fill"></i>
+        <span>@TempData["success"]</span>
+    </div>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert-modern danger">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        <span>@ViewBag.Error</span>
+    </div>
+}
+
+<form method="post" id="requestForm">
+    <div class="form-card">
+
+        <!-- System Selection -->
+        <div class="form-section">
+            <h3 class="section-title"><i class="bi bi-laptop"></i> System Selection</h3>
+
+            <div class="form-group-modern">
+                <label class="form-label-modern">
+                    <i class="bi bi-gear"></i> Select System <span class="text-danger">*</span>
+                </label>
+                <select asp-for="SystemName" class="form-control-modern" id="systemSelect" required>
+                    <option value="">-- Choose a system --</option>
+                    <option value="InvoiceQ">InvoiceQ</option>
+                    <option value="Ocity">Ocity</option>
+                </select>
+                <span asp-validation-for="SystemName" class="text-danger validation-message"></span>
+            </div>
+        </div>
+
+        <!-- User Information -->
+        <div class="form-section">
+            <h3 class="section-title"><i class="bi bi-person"></i> User Information</h3>
+
+            <div class="row-modern">
+                <div class="form-group-modern">
+                    <label class="form-label-modern">Full Name <span class="text-danger">*</span></label>
+                    <input asp-for="Name" class="form-control-modern" placeholder="Enter full name" required />
+                    <span asp-validation-for="Name" class="text-danger validation-message"></span>
+                </div>
+
+                <div class="form-group-modern">
+                    <label class="form-label-modern">Mobile Number <span class="text-danger">*</span></label>
+                    <input asp-for="MobileNumber" class="form-control-modern" placeholder="e.g., 05XXXXXXXX" required />
+                    <span asp-validation-for="MobileNumber" class="text-danger validation-message"></span>
+                </div>
+            </div>
+
+            <div class="form-group-modern">
+                <label class="form-label-modern">Email Address <span class="text-danger">*</span></label>
+                <input asp-for="Email" type="email" class="form-control-modern" placeholder="user@example.com" required />
+                <span asp-validation-for="Email" class="text-danger validation-message"></span>
+            </div>
+        </div>
+
+        <!-- InvoiceQ Specific Fields -->
+        <div id="invoiceFields" class="system-fields">
+            <div class="form-section">
+                <h3 class="section-title"><i class="bi bi-file-text"></i> InvoiceQ Details</h3>
+
+                <div class="row-modern">
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">Department <span class="text-danger">*</span></label>
+                        <input asp-for="Department" class="form-control-modern" placeholder="Enter department" />
+                        <span asp-validation-for="Department" class="text-danger validation-message"></span>
+                    </div>
+
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">Job Title <span class="text-danger">*</span></label>
+                        <input asp-for="InvoiceQJobTitle" class="form-control-modern" placeholder="Enter job title" />
+                        <span asp-validation-for="InvoiceQJobTitle" class="text-danger validation-message"></span>
+                    </div>
+                </div>
+
+                <div class="form-group-modern">
+                    <label class="form-label-modern">Unit <span class="text-danger">*</span></label>
+                    <input asp-for="Unit" class="form-control-modern" placeholder="Enter unit" />
+                    <span asp-validation-for="Unit" class="text-danger validation-message"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ocity Specific Fields -->
+        <div id="ocityFields" class="system-fields">
+            <div class="form-section">
+                <h3 class="section-title"><i class="bi bi-kanban"></i> Ocity Details</h3>
+
+                <div class="row-modern">
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">Project Name <span class="text-danger">*</span></label>
+                        <input asp-for="Project" class="form-control-modern" placeholder="Enter project name" />
+                        <span asp-validation-for="Project" class="text-danger validation-message"></span>
+                    </div>
+
+                    <div class="form-group-modern">
+                        <label class="form-label-modern">Job Title <span class="text-danger">*</span></label>
+                        <input asp-for="OcityJobTitle" class="form-control-modern" placeholder="Enter job title" />
+                        <span asp-validation-for="OcityJobTitle" class="text-danger validation-message"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Details -->
+        <div class="form-section">
+            <h3 class="section-title"><i class="bi bi-chat-left-text"></i> Request Details</h3>
+
+            <div class="form-group-modern">
+                <label class="form-label-modern">Description <span class="text-danger">*</span></label>
+                <textarea asp-for="RequestDetails" class="form-control-modern" placeholder="Provide detailed information..." required></textarea>
+                <span asp-validation-for="RequestDetails" class="text-danger validation-message"></span>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">
+                <i class="bi bi-send"></i> Submit Request
+            </button>
+            <a asp-controller="Requests" asp-action="Index" class="btn-cancel">
+                <i class="bi bi-arrow-left"></i> Back to My Requests
+            </a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        // Handle system switching
+        document.getElementById("systemSelect").addEventListener("change", function () {
+            const system = this.value;
+            const invoiceFields = document.getElementById("invoiceFields");
+            const ocityFields = document.getElementById("ocityFields");
+
+            invoiceFields.style.display = "none";
+            ocityFields.style.display = "none";
+
+            if (system === "InvoiceQ") invoiceFields.style.display = "block";
+            if (system === "Ocity") ocityFields.style.display = "block";
+
+            clearValidationMessages();
+        });
+
+        // Handle Form submission
+        document.getElementById("requestForm").addEventListener("submit", function (e) {
+            const system = document.getElementById("systemSelect").value;
+
+            if (!system) {
+                e.preventDefault();
+                showSystemError();
+                return;
+            }
+
+            if (system === "InvoiceQ" && !validateInvoiceQFields()) {
+                e.preventDefault();
+            }
+
+            if (system === "Ocity" && !validateOcityFields()) {
+                e.preventDefault();
+            }
+        });
+
+        function validateInvoiceQFields() {
+            const department = document.querySelector('input[name="Department"]');
+            const jobTitle = document.querySelector('input[name="InvoiceQJobTitle"]');
+            const unit = document.querySelector('input[name="Unit"]');
+            let isValid = true;
+
+            if (!department.value.trim()) { showFieldError(department, "Department is required"); isValid = false; }
+            if (!jobTitle.value.trim()) { showFieldError(jobTitle, "Job title is required"); isValid = false; }
+            if (!unit.value.trim()) { showFieldError(unit, "Unit is required"); isValid = false; }
+
+            return isValid;
+        }
+
+        function validateOcityFields() {
+            const project = document.querySelector('input[name="Project"]');
+            const jobTitle = document.querySelector('input[name="OcityJobTitle"]');
+            let isValid = true;
+
+            if (!project.value.trim()) { showFieldError(project, "Project is required"); isValid = false; }
+            if (!jobTitle.value.trim()) { showFieldError(jobTitle, "Job title is required"); isValid = false; }
+
+            return isValid;
+        }
+
+        function showSystemError() {
+            const systemSelect = document.getElementById("systemSelect");
+            const error = document.createElement('div');
+            error.className = 'text-danger system-error';
+            error.style.marginTop = '8px';
+            error.innerHTML = '<i class="bi bi-exclamation-circle"></i> Please select a system';
+            systemSelect.parentNode.appendChild(error);
+            systemSelect.style.borderColor = '#ef4444';
+        }
+
+        function showFieldError(field, message) {
+            const error = document.createElement('div');
+            error.className = 'text-danger field-error';
+            error.style.marginTop = '8px';
+            error.innerHTML = `<i class="bi bi-exclamation-circle"></i> ${message}`;
+            field.parentNode.appendChild(error);
+            field.style.borderColor = '#ef4444';
+        }
+
+        function clearValidationMessages() {
+            document.querySelectorAll('.system-error, .field-error').forEach(e => e.remove());
+            document.querySelectorAll('.form-control-modern').forEach(f => f.style.borderColor = '#e2e8f0');
+        }
+    </script>
+}

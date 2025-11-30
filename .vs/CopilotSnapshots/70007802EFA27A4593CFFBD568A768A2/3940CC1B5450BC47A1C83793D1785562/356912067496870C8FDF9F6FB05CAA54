@@ -1,0 +1,32 @@
+﻿{
+  "ApiSettings": {
+    "BaseUrl": "https://apptest.saptco.com.sa/PermissionSystemAPI/"
+    //"BaseUrl": "https://localhost:7248/"
+
+  },
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.File" ],
+    "MinimumLevel": "Information",
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "C:/logs/permission-log-.txt",
+          "rollingInterval": "Day",
+          "shared": true
+        }
+      }
+    ]
+  },
+
+  "AllowedHosts": "*"
+}

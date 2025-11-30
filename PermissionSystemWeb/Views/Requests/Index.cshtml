@@ -1,0 +1,414 @@
+﻿@model UserRequestsPageVm
+@{
+    ViewData["Title"] = "My Requests";
+}
+
+<style>
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        
+        display: inline-block;
+        text-transform: capitalize;
+    }
+
+    .st-pending {
+        background: #fbbf24;
+    }
+
+    .st-firstapproved {
+        background: #3b82f6;
+    }
+
+    .st-finalapproved {
+        background: #10b981;
+    }
+
+    .st-rejected {
+        background: #ef4444;
+    }
+
+    .st-inprogress {
+        background: #8b5cf6;
+    }
+
+    .stage-badge {
+        background: #f8fafc;
+        color: #475569;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 500;
+        border: 1px solid #e2e8f0;
+        display: inline-block;
+    }
+
+    .stage-submitted {
+        background: #f0f9ff;
+        color: #0369a1;
+        border-color: #bae6fd;
+    }
+
+    .stage-firstlevelapproved {
+        background: #f0fdf4;
+        color: #166534;
+        border-color: #bbf7d0;
+    }
+
+    .stage-completed {
+        background: #f0fdf4;
+        color: #166534;
+        border-color: #bbf7d0;
+    }
+
+    .stage-rejected {
+        background: #fef2f2;
+        color: #991b1b;
+        border-color: #fecaca;
+    }
+
+    .stage-inprogress {
+        background: #fffbeb;
+        color: #92400e;
+        border-color: #fed7aa;
+    }
+
+    .request-number {
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        color: #64748b;
+        background: #f8fafc;
+        padding: 4px 8px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .tab-btn {
+        padding: 10px 18px;
+        border-radius: 8px;
+        margin-right: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        border: 1px solid #d1d5db;
+    }
+
+    .tab-active {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+    }
+
+    .search-box {
+        width: 260px;
+        padding: 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+    }
+
+    .pagination a {
+        padding: 6px 12px;
+        margin: 0 3px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        color: #374151;
+        text-decoration: none;
+    }
+
+    .pagination .active-page {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+    }
+
+    .quick-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+        transition: 0.2s ease;
+        color: white;
+    }
+
+        .quick-btn i {
+            font-size: 18px;
+        }
+
+        .quick-btn.primary {
+            background: #3b82f6;
+        }
+
+            .quick-btn.primary:hover {
+                background: #2563eb;
+                transform: translateY(-2px);
+            }
+
+        .quick-btn.warning {
+            background: #f59e0b;
+        }
+
+            .quick-btn.warning:hover {
+                background: #d97706;
+                transform: translateY(-2px);
+            }
+
+    .quick-actions {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .table th {
+        background: #f8fafc;
+        color: #475569;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+</style>
+
+<div class="container mt-4">
+@* 
+    <div class="quick-actions">
+        <a class="quick-btn primary" asp-controller="Requests" asp-action="Create">
+            <i class="bi bi-plus-circle"></i>
+            <span>New Request</span>
+        </a>
+
+        <a class="quick-btn warning" asp-controller="Requests" asp-action="BulkUpload">
+            <i class="bi bi-upload"></i>
+            <span>Bulk Upload</span>
+        </a>
+    </div> *@
+
+    <h2 class="mb-3">My Requests</h2>
+
+    <!-- Tabs -->
+    <div class="mb-4">
+        <button class="tab-btn tab-active" id="btnActive">Active Requests (@Model.Active.Count)</button>
+        <button class="tab-btn" id="btnClosed">Closed Requests (@Model.Closed.Count)</button>
+    </div>
+
+    <!-- Filters & Search -->
+    <div class="d-flex mb-3" style="gap: 15px;">
+        <select id="systemFilter" class="form-select" style="width:180px;">
+            <option value="">All Systems</option>
+            <option value="InvoiceQ">InvoiceQ</option>
+            <option value="Ocity">Ocity</option>
+            <option value="PeriodicReview">Periodic Review</option>
+            <option value="Permission">Permission</option>
+        </select>
+
+        <input id="searchBox" class="search-box" type="text" placeholder="Search details...">
+    </div>
+
+    <!-- ACTIVE TABLE -->
+    <div id="activeTable">
+        @if (!Model.Active.Any())
+        {
+            <div class="text-center py-5" style="color: #94a3b8;">
+                <i class="bi bi-inbox" style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
+                <p>No active requests found.</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Request #</th>
+                        <th>System</th>
+                        <th>Stage</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="activeBody">
+                    @foreach (var item in Model.Active)
+                    {
+                        <tr>
+                            <td>
+                                <span class="request-number">@item.RequestNumber</span>
+                            </td>
+                            <td class="system-col">@item.SystemName</td>
+                            <td>
+                                <span class="stage-badge stage-@item.CurrentStage?.ToLower()">
+                                    @item.CurrentStage
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status-badge st-@item.Status.ToLower()">@item.Status</span>
+                            </td>
+                            <td class="details-col">@item.RequestDetails</td>
+                            <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary"
+   href="@Url.Action("DetailsR", "Requests", new { id = item.Id, system = item.SystemName })">
+    View
+</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination mt-3" id="activePagination"></div>
+        }
+    </div>
+
+    <!-- CLOSED TABLE -->
+    <div id="closedTable" style="display:none;">
+        @if (!Model.Closed.Any())
+        {
+            <div class="text-center py-5" style="color: #94a3b8;">
+                <i class="bi bi-inbox" style="font-size: 48px; display: block; margin-bottom: 16px;"></i>
+                <p>No closed requests found.</p>
+            </div>
+        }
+        else
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Request #</th>
+                        <th>System</th>
+                        <th>Stage</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="closedBody">
+                    @foreach (var item in Model.Closed)
+                    {
+                        <tr>
+                            <td>
+                                <span class="request-number">@item.RequestNumber</span>
+                            </td>
+                            <td class="system-col">@item.SystemName</td>
+                            <td>
+                                <span class="stage-badge stage-@item.CurrentStage?.ToLower()">
+                                    @item.CurrentStage
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status-badge st-@item.Status.ToLower()">@item.Status</span>
+                            </td>
+                            <td class="details-col">@item.RequestDetails</td>
+                            <td>@item.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                              <a class="btn btn-sm btn-primary"
+   href="@Url.Action("DetailsR", "Requests", new { id = item.Id, system = item.SystemName })">
+    View
+</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Pagination -->
+            <div class="pagination mt-3" id="closedPagination"></div>
+        }
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+    // ========================
+    //   Tabs Switch
+    // ========================
+    document.getElementById("btnActive").onclick = () => {
+        document.getElementById("activeTable").style.display = "";
+        document.getElementById("closedTable").style.display = "none";
+        document.getElementById("btnActive").classList.add("tab-active");
+        document.getElementById("btnClosed").classList.remove("tab-active");
+    };
+
+    document.getElementById("btnClosed").onclick = () => {
+        document.getElementById("activeTable").style.display = "none";
+        document.getElementById("closedTable").style.display = "";
+        document.getElementById("btnClosed").classList.add("tab-active");
+        document.getElementById("btnActive").classList.remove("tab-active");
+    };
+
+    // ========================
+    // Filter by System
+    // ========================
+    document.getElementById("systemFilter").addEventListener("change", function () {
+        let value = this.value.toLowerCase();
+
+        document.querySelectorAll("tbody tr").forEach(row => {
+            let system = row.querySelector(".system-col").innerText.toLowerCase();
+            row.style.display = (value === "" || system.includes(value)) ? "" : "none";
+        });
+    });
+
+    // ========================
+    // Search in Details
+    // ========================
+    document.getElementById("searchBox").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+
+        document.querySelectorAll("tbody tr").forEach(row => {
+            let details = row.querySelector(".details-col").innerText.toLowerCase();
+            row.style.display = details.includes(value) ? "" : "none";
+        });
+    });
+
+    // ========================
+    // Pagination Function
+    // ========================
+    function paginate(tableBodyId, paginationId, pageSize = 8) {
+        let rows = document.querySelectorAll(`#${tableBodyId} tr`);
+        let pageCount = Math.ceil(rows.length / pageSize);
+        let pagination = document.getElementById(paginationId);
+
+        pagination.innerHTML = "";
+
+        for (let i = 1; i <= pageCount; i++) {
+            let btn = document.createElement("a");
+            btn.innerText = i;
+
+            btn.onclick = function () {
+                let start = (i - 1) * pageSize;
+                let end = i * pageSize;
+
+                rows.forEach((r, index) => {
+                    r.style.display = (index >= start && index < end) ? "" : "none";
+                });
+
+                document.querySelectorAll(`#${paginationId} a`)
+                    .forEach(x => x.classList.remove("active-page"));
+
+                btn.classList.add("active-page");
+            };
+
+            pagination.appendChild(btn);
+        }
+
+        // Show first page by default
+        if (pagination.firstChild) pagination.firstChild.click();
+    }
+
+    // Init pagination for both tables
+    if (document.querySelectorAll("#activeBody tr").length > 0) {
+        paginate("activeBody", "activePagination");
+    }
+
+    if (document.querySelectorAll("#closedBody tr").length > 0) {
+        paginate("closedBody", "closedPagination");
+    }
+</script>

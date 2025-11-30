@@ -1,0 +1,542 @@
+﻿@using PermissionSystemWeb.Models.ViewModels
+@model PeriodicReviewPageVm
+
+@{
+    ViewData["Title"] = "Periodic Access Review";
+}
+
+<style>
+    .page-header {
+        margin-bottom: 32px;
+    }
+
+    .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .page-subtitle {
+        color: #64748b;
+        font-size: 15px;
+    }
+
+    .kpi-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+
+    .kpi-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        font-size: 20px;
+    }
+
+        .kpi-icon.primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .kpi-icon.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .kpi-icon.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .kpi-icon.danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+    .kpi-value {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .kpi-label {
+        font-size: 14px;
+        color: #64748b;
+        font-weight: 600;
+    }
+
+    .cycle-badge {
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .badge-active {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+    }
+
+    .badge-inactive {
+        background: #f1f5f9;
+        color: #64748b;
+    }
+
+    .btn-modern {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+
+    .btn-primary-modern {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: white;
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+        .btn-primary-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+            color: white;
+        }
+
+    .btn-success-modern {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+        .btn-success-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+            color: white;
+        }
+
+    .btn-outline-modern {
+        background: white;
+        border: 2px solid #e2e8f0;
+        color: #475569;
+    }
+
+        .btn-outline-modern:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+    .review-table {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0;
+    }
+
+    .table-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .table-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .table-title i {
+            color: #3b82f6;
+        }
+
+    .table-modern {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table-modern th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            font-size: 14px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .table-modern td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+        }
+
+        .table-modern tr:hover {
+            background: #f8fafc;
+        }
+
+    .form-select-modern {
+        padding: 8px 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        background: white;
+        transition: all 0.2s ease;
+    }
+
+        .form-select-modern:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+    .alert-modern {
+        padding: 16px 20px;
+        border-radius: 12px;
+        border: none;
+        margin-bottom: 24px;
+        font-size: 14px;
+    }
+
+        .alert-modern.success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .alert-modern.danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+    .progress-container {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .progress-header {
+        display: flex;
+        justify-content: between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .progress-bar {
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #10b981, #34d399);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    .progress-text {
+        font-size: 14px;
+        color: #64748b;
+        text-align: center;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="page-header">
+    <h1 class="page-title">
+        <i class="bi bi-shield-check" style="color: #3b82f6;"></i>
+        Periodic Access Review
+    </h1>
+    <p class="page-subtitle">Review and manage user permissions on a regular basis</p>
+</div>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert-modern success">
+        <i class="bi bi-check-circle-fill"></i>
+        @TempData["success"]
+    </div>
+}
+@if (TempData["error"] != null)
+{
+    <div class="alert-modern danger">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        @TempData["error"]
+    </div>
+}
+
+<!-- Cycle Status & Actions -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        @if (!Model.Overview.HasActiveCycle)
+        {
+            <form asp-action="StartCycle" method="post" class="d-inline">
+                <button class="btn-modern btn-primary-modern">
+                    <i class="bi bi-arrow-repeat"></i> Start New Review Cycle
+                </button>
+            </form>
+        }
+        else
+        {
+            <div class="cycle-badge badge-active">
+                <i class="bi bi-activity"></i>
+                Active Cycle: @Model.Overview.ActiveCycleCreatedAt?.ToString("MMM dd, yyyy HH:mm")
+                <span class="badge bg-light text-dark ms-2">@Model.Overview.ActiveCycleStatus</span>
+            </div>
+        }
+    </div>
+
+    @if (Model.Overview.HasActiveCycle)
+    {
+        <form asp-action="Confirm" method="post" class="d-inline">
+            <button class="btn-modern btn-success-modern">
+                <i class="bi bi-check2-circle"></i> Confirm Review & Export
+            </button>
+        </form>
+    }
+</div>
+
+<!-- Progress Bar -->
+@if (Model.Overview.HasActiveCycle)
+{
+    <div class="progress-container">
+        <div class="progress-header">
+            <span style="font-weight: 600; color: #0f172a;">Review Progress</span>
+            <span style="font-size: 14px; color: #64748b;">
+                @Model.Overview.ReviewedCount of @Model.Overview.InScopeThisCycle completed
+            </span>
+        </div>
+        <div class="progress-bar">
+            @{
+                var progressPercentage = Model.Overview.InScopeThisCycle > 0 ?
+                (Model.Overview.ReviewedCount * 100) / Model.Overview.InScopeThisCycle : 0;
+            }
+            <div class="progress-fill" style="width: @progressPercentage%"></div>
+        </div>
+        <div class="progress-text">
+            @progressPercentage% Complete (@Model.Overview.RemainingCount remaining)
+        </div>
+    </div>
+}
+
+<!-- KPI Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div class="kpi-icon primary">
+                <i class="bi bi-shield-lock"></i>
+            </div>
+            <div class="kpi-value text-primary">@Model.Overview.TotalPermissions</div>
+            <div class="kpi-label">Total Permissions</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div class="kpi-icon warning">
+                <i class="bi bi-list-check"></i>
+            </div>
+            <div class="kpi-value text-warning">@Model.Overview.InScopeThisCycle</div>
+            <div class="kpi-label">In Scope (This Cycle)</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div class="kpi-icon success">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="kpi-value text-success">@Model.Overview.ReviewedCount</div>
+            <div class="kpi-label">Reviewed</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card">
+            <div class="kpi-icon danger">
+                <i class="bi bi-clock"></i>
+            </div>
+            <div class="kpi-value text-danger">@Model.Overview.RemainingCount</div>
+            <div class="kpi-label">Remaining</div>
+        </div>
+    </div>
+</div>
+
+<!-- Review Table -->
+<div class="review-table">
+    <div class="table-header">
+        <h5 class="table-title">
+            <i class="bi bi-table"></i>
+            Permissions In Scope
+        </h5>
+        <button id="btnSaveReview" class="btn-modern btn-outline-modern">
+            <i class="bi bi-save"></i> Save Decisions
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-modern">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>System</th>
+                    <th>Permission</th>
+                    <th>Current Status</th>
+                    <th>Decision</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr data-id="@item.Id">
+                        <td style="font-weight: 600; color: #0f172a;">@item.EmployeeId</td>
+                        <td>@item.Email</td>
+                        <td>
+                            <span class="badge bg-primary bg-opacity-10 text-primary">@item.SystemName</span>
+                        </td>
+                        <td>@item.PermissionDetails</td>
+                        <td>
+                            <span class="badge
+                                    @(item.CurrentStatus == "Active" ? "bg-success" :
+                                                                    item.CurrentStatus == "Inactive" ? "bg-secondary" : "bg-warning")">
+                            @item.CurrentStatus
+                        </span>
+                    </td>
+                    <td>
+                        <select class="form-select-modern review-decision">
+                            <option value="">-- Select Decision --</option>
+                            <option value="Keep" selected="@(item.SuggestedAction == "Keep")">Keep Access</option>
+                            <option value="Revoke" selected="@(item.SuggestedAction == "Revoke")">Revoke Access</option>
+                        </select>
+                    </td>
+                </tr>
+                                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById("btnSaveReview")?.addEventListener("click", function () {
+            const rows = document.querySelectorAll("table tbody tr");
+            const payload = [];
+            let hasEmptySelections = false;
+
+            rows.forEach(row => {
+                const id = parseInt(row.getAttribute("data-id"));
+                const decision = row.querySelector(".review-decision").value;
+
+                if (!decision) {
+                    hasEmptySelections = true;
+                    row.style.backgroundColor = '#fef2f2';
+                } else {
+                    row.style.backgroundColor = '';
+                }
+
+                payload.push({
+                    id: id,
+                    suggestedAction: decision
+                });
+            });
+
+            if (hasEmptySelections) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Incomplete Review',
+                    text: 'Please select Keep/Revoke for all permissions. Rows with missing decisions are highlighted.',
+                    confirmButtonColor: '#3b82f6'
+                });
+                return;
+            }
+
+            // Show loading
+            Swal.fire({
+                title: 'Saving Decisions...',
+                text: 'Please wait while we save your review decisions',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            fetch("@Url.Action("SaveDecisions", "Review")", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]')?.value
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Network error');
+                return response.json();
+            })
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Decisions Saved!',
+                    text: 'Your review decisions have been saved successfully.',
+                    confirmButtonColor: '#10b981'
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Save Failed',
+                    text: 'Failed to save decisions. Please try again.',
+                    confirmButtonColor: '#ef4444'
+                });
+            });
+        });
+
+        // Highlight rows when selection changes
+        document.querySelectorAll('.review-decision').forEach(select => {
+            select.addEventListener('change', function() {
+                const row = this.closest('tr');
+                if (this.value) {
+                    row.style.backgroundColor = '#f0fdf4';
+                } else {
+                    row.style.backgroundColor = '';
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,443 @@
+﻿@model ApprovalsVm
+@{
+    ViewData["Title"] = "Approvals";
+    string role2 = ViewBag.Role?.ToString() ?? "";
+    string role = ViewData["Role"]?.ToString() ?? "";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="~/css/Approvals.css" />
+
+
+<div style="display:none;">
+    ViewBag.Role: '@ViewBag.Role'
+    ViewBag.Role Type: '@ViewBag.Role?.GetType()'
+    ViewBag.Role Length: '@ViewBag.Role?.Length'
+</div>
+<div class="page-header">
+    <h1 class="page-title">
+        <i class="bi bi-check-square-fill" style="color: #3b82f6;"></i>
+        Pending Approvals
+    </h1>
+    <p class="page-subtitle">Review and approve or reject permission requests</p>
+</div>
+
+<div class="stats-row">
+
+    @if (role == "DirectManager")
+    {
+        <!-- Show ONLY First Level -->
+        <div class="stat-card">
+            <div class="stat-label">
+                <i class="bi bi-person-check"></i> First Level
+            </div>
+            <div class="stat-value">@Model.DirectPending.Count</div>
+        </div>
+    }
+    else if (role == "GM" || role == "FinalManager")
+    {
+        <!-- Show ONLY Final Approval -->
+        <div class="stat-card warning">
+            <div class="stat-label">
+                <i class="bi bi-shield-check"></i> Final Approval
+            </div>
+            <div class="stat-value">@Model.FinalPending.Count</div>
+        </div>
+    }
+    else if (role == "Implementor")
+    {
+        <!-- Show ONLY Implementor -->
+        <div class="stat-card warning">
+            <div class="stat-label">
+                <i class="bi bi-shield-check"></i> Implement
+            </div>
+            <div class="stat-value">@Model.ImplementPending.Count</div>
+        </div>
+     }
+    else
+    {
+        <!-- Admin sees BOTH -->
+        <div class="stat-card">
+            <div class="stat-label">
+                <i class="bi bi-person-check"></i> First Level
+            </div>
+            <div class="stat-value">@Model.DirectPending.Count</div>
+        </div>
+
+        <div class="stat-card warning">
+            <div class="stat-label">
+                <i class="bi bi-shield-check"></i> Final Approval
+            </div>
+            <div class="stat-value">@Model.FinalPending.Count</div>
+        </div>
+
+        <div class="stat-card warning">
+            <div class="stat-label">
+                <i class="bi bi-shield-check"></i> Implement
+            </div>
+            <div class="stat-value">@Model.ImplementPending.Count</div>
+        </div>
+    }
+
+</div>
+
+<div class="tabs-container">
+
+    <!-- ========== TABS HEADER (ROLE-BASED) ========== -->
+    <div class="tabs-header">
+
+        @if (role == "DirectManager")
+        {
+            <!-- Only first tab -->
+            <button class="tab-button active" onclick="switchTab('first')">
+                <i class="bi bi-person-check"></i>
+                <span>Direct Manager</span>
+                <span class="tab-badge">@Model.DirectPending.Count</span>
+            </button>
+        }
+        else if (role == "GM" || role == "FinalManager")
+        {
+            <!-- Only final tab -->
+            <button class="tab-button active" onclick="switchTab('final')">
+                <i class="bi bi-shield-check"></i>
+                <span>Final Approval</span>
+                <span class="tab-badge" style="background: #f59e0b;">@Model.FinalPending.Count</span>
+            </button>
+        }
+        else if (role == "Implementor")
+        {
+            <!-- Only final tab -->
+            <button class="tab-button active" onclick="switchTab('Implementor')">
+                <i class="bi bi-shield-check"></i>
+                <span>Implement</span>
+                <span class="tab-badge" style="background: #f59e0b;">@Model.ImplementPending.Count</span>
+            </button>
+        }
+
+
+        else
+        {
+            <!-- Admin sees both tabs -->
+            <button class="tab-button active" onclick="switchTab('first')">
+                <i class="bi bi-person-check"></i>
+                <span>Direct Manager</span>
+                <span class="tab-badge">@Model.DirectPending.Count</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('final')">
+                <i class="bi bi-shield-check"></i>
+                <span>Final Approval</span>
+                <span class="tab-badge" style="background: #f59e0b;">@Model.FinalPending.Count</span>
+            </button>
+            <button class="tab-button active" onclick="switchTab('Implementor')">
+                <i class="bi bi-shield-check"></i>
+                <span>Implement</span>
+                <span class="tab-badge" style="background: #f59e0b;">@Model.ImplementPending.Count</span>
+            </button>
+        }
+
+    </div>
+
+    <!-- ========== FIRST LEVEL TAB ========== -->
+    @if (role == "DirectManager" || role == "Admin")
+    {
+        <div id="tab-first" class="tab-content @(role == "DirectManager" ? "active" : "")">
+
+            @if (Model.DirectPending.Any())
+            {
+                <table id="tblFirst" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Request #</th>
+                            <th>Employe Id</th>
+                            <th>Employe Name</th>
+
+                          
+                            <th>Stage</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.DirectPending)
+                        {
+                            <tr>
+                                <td><strong>#@r.Id</strong></td>
+                                <td><small>@r.RequestNumber</small></td>
+                                <td>@r.CreatedByUsername</td>
+                                <td>@r.RequestedBy</td>
+
+                               
+                                <td><span class="stage-badge">@r.CurrentStage</span></td>
+                                <td><small>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></td>
+                                <td>
+
+                                    <a href="@Url.Action("Details", "Approvals", new { id = r.Id, system = r.SystemName })"
+                                       class="btn-action btn-view" style="background:#0ea5e9; color:white;">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+
+                                    <button class="btn-action btn-approve" data-id="@r.Id" data-requestedby="@r.CreatedByUsername" data-requesttype="@r.SystemName" data-level="first">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </button>
+
+                                    <button class="btn-action btn-reject" data-requestedby="@r.CreatedByUsername" data-id="@r.Id" data-requesttype="@r.SystemName">
+                                        <i class="bi bi-x-circle"></i> Reject
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <h4>No Pending Approvals</h4>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ========== FINAL LEVEL TAB ========== -->
+    @if (role == "GM" || role == "FinalManager" || role == "Admin")
+    {
+        <div id="tab-final" class="tab-content @(role == "DirectManager" ? "" : "active")">
+
+            @if (Model.FinalPending.Any())
+            {
+                <table id="tblFinal" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Request #</th>
+                          
+                            <th>Employe Id</th>
+                            <th>Employe Name</th>
+                            <th>Stage</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.FinalPending)
+                        {
+                            <tr>
+                                <td><strong>#@r.Id</strong></td>
+                                <td><small>@r.RequestNumber</small></td>
+                                <td>@r.CreatedByUsername</td>
+                                <td>@r.RequestedBy</td>
+                                <td><span class="stage-badge">@r.CurrentStage</span></td>
+                                <td><small>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></td>
+                                <td>
+
+                                    <a href="@Url.Action("Details", "Approvals", new { id = r.Id, system = r.SystemName })"
+                                       class="btn-action btn-view" style="background:#0ea5e9; color:white;">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+
+                                    <button class="btn-action btn-approve" data-requestedby="@r.CreatedByUsername" data-id="@r.Id" data-requesttype="@r.SystemName" data-level="second">
+                                        <i class="bi bi-check-circle"></i> Approve
+                                    </button>
+
+                                    <button class="btn-action btn-reject" data-requestedby="@r.CreatedByUsername" data-id="@r.Id" data-requesttype="@r.SystemName">
+                                        <i class="bi bi-x-circle"></i> Reject
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <h4>No Final Approvals</h4>
+                </div>
+            }
+        </div>
+    }
+
+
+    <!-- ========== IMPLEMENTOR TAB ========== -->
+    @if (role == "Implementor" || role == "Admin")
+    {
+        <div id="tab-Implementor" class="tab-content @(role == "Implementor" ? "active" : "")">
+
+            @if (Model.ImplementPending.Any())
+            {
+                <table id="tblImplement" class="display">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Request #</th>
+                            <th>Employee Id</th>
+                            <th>Employee Name</th>
+                            <th>Stage</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in Model.ImplementPending)
+                        {
+                            <tr>
+                                <td><strong>#@r.Id</strong></td>
+                                <td><small>@r.RequestNumber</small></td>
+                                <td>@r.CreatedByUsername</td>
+                                <td>@r.RequestedBy</td>
+                                <td><span class="stage-badge">@r.CurrentStage</span></td>
+                                <td><small>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</small></td>
+                                <td>
+
+                                    <a href="@Url.Action("Details", "Approvals", new { id = r.Id, system = r.SystemName })"
+                                       class="btn-action btn-view" style="background:#0ea5e9; color:white;">
+                                        <i class="bi bi-eye"></i> View
+                                    </a>
+
+                                    <button class="btn-action btn-approve" data-requestedby="@r.CreatedByUsername" data-id="@r.Id" data-requesttype="@r.SystemName" data-level="implement">
+                                        <i class="bi bi-check-circle"></i> Done
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <h4>No Pending Implementations</h4>
+                </div>
+            }
+        </div>
+    }
+
+</div>
+
+<script>
+    // Tab switching function
+    function switchTab(tab, element) {
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        element.classList.add('active');
+        document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    // Approve/Reject functionality - بعد ما يتحمل الـ DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded - setting up button listeners');
+
+        // Approve buttons
+        document.querySelectorAll('.btn-approve').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const requestType = this.getAttribute('data-requesttype');
+                const level = this.getAttribute('data-level');
+                const requestedBy = this.getAttribute('data-requestedby');
+
+                console.log('Approve clicked:', { id, requestType, level,requestedBy });
+                approveRequest(id, requestType, level,requestedBy);
+            });
+        });
+
+        // Reject buttons
+        document.querySelectorAll('.btn-reject').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const requestType = this.getAttribute('data-requesttype');
+
+                console.log('Reject clicked:', { id, requestType });
+                rejectRequest(id, requestType);
+            });
+        });
+    });
+
+    async function approveRequest(id, requestType, level,requestedBy) {
+        try {
+            const comments = prompt('Enter approval comments (optional):') || '';
+
+                let url = '';
+
+    if (level === 'first') {
+        url = '/Approvals/ApproveFirst';
+    }
+    else if (level === 'second') {
+        url = '/Approvals/ApproveSecond';
+    }
+    else if (level === 'implement') {
+        url = '/Approvals/Implementor';   // 👍 إضافة الرابط الخاص بالـ Implementor
+    }
+
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                      'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    requestId: parseInt(id),
+                    requestType: requestType,
+                    comments: comments,
+                    requestedBy:requestedBy
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                Swal.fire('Success!', 'Request approved successfully', 'success').then(() => {
+                    location.reload();
+                });
+            } else {
+                Swal.fire('Error!', result.message, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire('Error!', 'Failed to approve request', 'error');
+        }
+    }
+
+    async function rejectRequest(id, requestType) {
+        try {
+            const reason = prompt('Please enter rejection reason:');
+            if (reason === null) return; // User cancelled
+
+            const response = await fetch('/Approvals/Reject', {
+                method: 'POST',
+                headers: {
+                     'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: JSON.stringify({
+                    requestId: parseInt(id),
+                    requestType: requestType,
+                    reason: reason,
+                    additionalComments: ''
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                Swal.fire('Success!', 'Request rejected successfully', 'success').then(() => {
+                    location.reload();
+                });
+            } else {
+                Swal.fire('Error!', result.message, 'error');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            Swal.fire('Error!', 'Failed to reject request', 'error');
+        }
+    }
+</script>

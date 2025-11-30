@@ -1,0 +1,636 @@
+﻿@using PermissionSystemWeb.Models.ViewModels
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+    <a class="quick-btn primary" asp-controller="Requests" asp-action="Create">
+        <i class="bi bi-plus-circle"></i>
+        <span>New Request</span>
+    </a>
+    <a class="quick-btn warning" asp-controller="Requests" asp-action="BulkUpload">
+        <i class="bi bi-upload"></i>
+        <span>Bulk Upload</span>
+    </a>
+    <a class="quick-btn success" asp-controller="Approvals" asp-action="Index">
+        <i class="bi bi-check2-square"></i>
+        <span>Approvals</span>
+    </a>
+    <a class="quick-btn info" asp-controller="Review" asp-action="Index">
+        <i class="bi bi-shield-check"></i>
+        <span>Periodic Review</span>
+    </a>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-2 col-md-4">
+        <div class="stat-card primary">
+            <div class="stat-icon primary">
+                <i class="bi bi-file-text"></i>
+            </div>
+            <div class="stat-label">InvoiceQ</div>
+            <div class="stat-value">@Model.Stats.TotalInvoiceQ</div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-4">
+        <div class="stat-card warning">
+            <div class="stat-icon warning">
+                <i class="bi bi-building"></i>
+            </div>
+            <div class="stat-label">Ocity</div>
+            <div class="stat-value">@Model.Stats.TotalOcity</div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-4">
+        <div class="stat-card info">
+            <div class="stat-icon info">
+                <i class="bi bi-shield-check"></i>
+            </div>
+            <div class="stat-label">Reviews</div>
+            <div class="stat-value">@Model.Stats.TotalPeriodicReviews</div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-4">
+        <div class="stat-card secondary">
+            <div class="stat-icon secondary">
+                <i class="bi bi-key"></i>
+            </div>
+            <div class="stat-label">Permissions</div>
+            <div class="stat-value">@Model.Stats.TotalPermissions</div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-4">
+        <div class="stat-card success">
+            <div class="stat-icon success">
+                <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-label">Approved Today</div>
+            <div class="stat-value">@Model.Stats.ApprovedToday</div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-4">
+        <div class="stat-card danger">
+            <div class="stat-icon danger">
+                <i class="bi bi-x-circle"></i>
+            </div>
+            <div class="stat-label">Rejected</div>
+            <div class="stat-value">@Model.Stats.Rejected</div>
+        </div>
+    </div>
+</div>
+
+<!-- Second Row Stats -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card primary">
+            <div class="stat-icon primary">
+                <i class="bi bi-hourglass-split"></i>
+            </div>
+            <div class="stat-label">Pending First</div>
+            <div class="stat-value">@Model.Stats.PendingFirst</div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card warning">
+            <div class="stat-icon warning">
+                <i class="bi bi-shield-check"></i>
+            </div>
+            <div class="stat-label">Pending Final</div>
+            <div class="stat-value">@Model.Stats.PendingFinal</div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card success">
+            <div class="stat-icon success">
+                <i class="bi bi-check-all"></i>
+            </div>
+            <div class="stat-label">Total Approved</div>
+            <div class="stat-value">@Model.Stats.Approved</div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card info">
+            <div class="stat-icon info">
+                <i class="bi bi-graph-up"></i>
+            </div>
+            <div class="stat-label">In Progress</div>
+            <div class="stat-value">@(Model.Stats.PendingFirst + Model.Stats.PendingFinal)</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Section -->
+<div class="row g-4 mb-4">
+    <!-- Bar Chart -->
+    <div class="col-lg-8">
+        <div class="chart-card">
+            <h3 class="chart-title">
+                <i class="bi bi-bar-chart-fill text-primary"></i>
+                Requests Status Comparison
+            </h3>
+            <div class="chart-container">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Doughnut Chart -->
+    <div class="col-lg-4">
+        <div class="chart-card">
+            <h3 class="chart-title">
+                <i class="bi bi-pie-chart-fill text-success"></i>
+                System Distribution
+            </h3>
+            <div class="chart-container">
+                <canvas id="systemChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Requests -->
+<div class="table-card">
+    <h3 class="table-title">
+        <i class="bi bi-clock-history text-primary"></i>
+        Recent Requests
+    </h3>
+    @if (!Model.Recent.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <p>No recent requests found.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Request #</th>
+                        <th>System</th>
+                        <th>Details</th>
+                        <th>Stage</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.Recent)
+                    {
+                        <tr>
+                            <td>
+                                <span class="request-number">@r.RequestNumber</span>
+                            </td>
+                            <td><strong>@r.System</strong></td>
+                            <td>@r.Details</td>
+                            <td>
+                                <span class="stage-badge @r.CurrentStage?.ToLower()">
+                                    @r.CurrentStage
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status-badge @r.Status?.ToLower()">
+                                    @r.Status
+                                </span>
+                            </td>
+                            <td>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar3"></i>
+                                    @r.CreatedAt.ToString("MMM dd, yyyy HH:mm")
+                                </small>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!-- My Pending Approvals -->
+<div class="table-card">
+    <h3 class="table-title">
+        <i class="bi bi-hourglass-split text-warning"></i>
+        My Pending Approvals
+    </h3>
+    @if (!Model.Pending.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <p>No pending approvals.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Request #</th>
+                        <th>System</th>
+                        <th>Details</th>
+                        <th>Stage</th>
+                        <th>Role</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model.Pending)
+                    {
+                        <tr>
+                            <td>
+                                <span class="request-number">@p.RequestNumber</span>
+                            </td>
+                            <td><strong>@p.System</strong></td>
+                            <td>@p.Details</td>
+                            <td>
+                                <span class="stage-badge @p.CurrentStage?.ToLower()">
+                                    @p.CurrentStage
+                                </span>
+                            </td>
+                            <td><span class="status-badge info">@p.Role</span></td>
+                            <td>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar3"></i>
+                                    @p.CreatedAt.ToString("MMM dd, yyyy HH:mm")
+                                </small>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!-- Activity Log -->
+<div class="table-card">
+    <h3 class="table-title">
+        <i class="bi bi-activity text-success"></i>
+        Recent Activity
+    </h3>
+    @if (!Model.Activity.Any())
+    {
+        <div class="empty-state">
+            <i class="bi bi-inbox"></i>
+            <p>No recent activity.</p>
+        </div>
+    }
+    else
+    {
+        foreach (var a in Model.Activity)
+        {
+            <div class="activity-item">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                    <div>
+                        <strong style="color: #0f172a;">@a.User</strong>
+                        <span style="color: #64748b; margin: 0 8px;">—</span>
+                        <span style="color: #475569;">@a.Action</span>
+                        @if (!string.IsNullOrEmpty(a.RequestType))
+                        {
+                            <span style="color: #64748b; margin: 0 4px;">•</span>
+                            <span class="stage-badge">@a.RequestType</span>
+                        }
+                    </div>
+                    @if (!string.IsNullOrEmpty(a.StatusAfter))
+                    {
+                        <span class="status-badge @a.StatusAfter?.ToLower()">@a.StatusAfter</span>
+                    }
+                </div>
+                @if (!string.IsNullOrEmpty(a.Comments))
+                {
+                    <div style="margin: 8px 0; color: #64748b; font-size: 14px;">
+                        <i class="bi bi-chat-left"></i>
+                        @a.Comments
+                    </div>
+                }
+                <small style="color: #94a3b8;">
+                    <i class="bi bi-clock"></i>
+                    @a.ActionDate.ToString("MMM dd, yyyy HH:mm")
+                </small>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        (function () {
+            // Fetch chart data from API and render charts
+            async function loadCharts() {
+                try {
+                    // Use server-provided data if available
+                    const serverData = @Html.Raw(Json.Serialize(Model.Chart));
+
+                    if (serverData && Object.keys(serverData).length > 0) {
+                        renderCharts(serverData);
+                    } else {
+                        // Fallback to API fetch
+                        const res = await fetch('/api/dashboard/chart');
+                        if (!res.ok) throw new Error('Failed to load chart data');
+                        const data = await res.json();
+                        renderCharts(data);
+                    }
+                } catch (err) {
+                    console.error('Chart load error', err);
+                    showChartError();
+                }
+            }
+
+            function renderCharts(data) {
+                // Ensure data exists and has expected structure
+                if (!data) {
+                    showChartError();
+                    return;
+                }
+
+                const invoice = data.invoiceCount || [];
+                const ocity = data.ocityCount || [];
+                const periodic = data.periodicCount || [];
+                const permissions = data.permissionsCount || [];
+
+                // Collect unique statuses across all systems
+                const statuses = new Set();
+
+                // Safely collect statuses
+                [invoice, ocity, periodic, permissions].forEach(arr => {
+                    if (Array.isArray(arr)) {
+                        arr.forEach(item => {
+                            if (item && item.status) {
+                                statuses.add(item.status);
+                            }
+                        });
+                    }
+                });
+
+                const labels = Array.from(statuses).filter(s => s && s !== '').sort();
+
+                // Helper to map counts by status safely
+                function mapCounts(arr) {
+                    if (!Array.isArray(arr)) return labels.map(() => 0);
+
+                    const map = new Map();
+                    arr.forEach(item => {
+                        if (item && item.status !== undefined) {
+                            map.set(item.status, item.count || 0);
+                        }
+                    });
+                    return labels.map(label => map.get(label) || 0);
+                }
+
+                const invoiceData = mapCounts(invoice);
+                const ocityData = mapCounts(ocity);
+                const periodicData = mapCounts(periodic);
+                const permissionsData = mapCounts(permissions);
+
+                // Render Bar Chart
+                renderBarChart(labels, invoiceData, ocityData, periodicData, permissionsData);
+
+                // Render Doughnut Chart
+                renderDoughnutChart(invoice, ocity, periodic, permissions);
+            }
+
+            function renderBarChart(labels, invoiceData, ocityData, periodicData, permissionsData) {
+                const ctx = document.getElementById('statusChart');
+                if (!ctx) return;
+
+                // Destroy existing chart if exists
+                if (window._statusChart) {
+                    window._statusChart.destroy();
+                }
+
+                // Check if we have data to display
+                const hasData = invoiceData.some(count => count > 0) ||
+                               ocityData.some(count => count > 0) ||
+                               periodicData.some(count => count > 0) ||
+                               permissionsData.some(count => count > 0);
+
+                if (!hasData || labels.length === 0) {
+                    ctx.style.display = 'none';
+                    ctx.closest('.chart-container').innerHTML =
+                        '<div class="empty-state"><i class="bi bi-bar-chart"></i><p>No data available for chart</p></div>';
+                    return;
+                }
+
+                ctx.style.display = 'block';
+                window._statusChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'InvoiceQ',
+                                data: invoiceData,
+                                backgroundColor: 'rgba(14,165,233,0.8)',
+                                borderColor: 'rgba(14,165,233,1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Ocity',
+                                data: ocityData,
+                                backgroundColor: 'rgba(245,158,11,0.8)',
+                                borderColor: 'rgba(245,158,11,1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Periodic',
+                                data: periodicData,
+                                backgroundColor: 'rgba(16,185,129,0.8)',
+                                borderColor: 'rgba(16,185,129,1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Permissions',
+                                data: permissionsData,
+                                backgroundColor: 'rgba(99,102,241,0.8)',
+                                borderColor: 'rgba(99,102,241,1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        scales: {
+                            x: {
+                                stacked: false,
+                                title: {
+                                    display: true,
+                                    text: 'Status'
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Count'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                cornerRadius: 6
+                            }
+                        }
+                    }
+                });
+            }
+
+            function renderDoughnutChart(invoice, ocity, periodic, permissions) {
+                const ctx = document.getElementById('systemChart');
+                if (!ctx) return;
+
+                // Destroy existing chart if exists
+                if (window._systemChart) {
+                    window._systemChart.destroy();
+                }
+
+                // Safely calculate totals
+                function safeTotal(arr) {
+                    if (!Array.isArray(arr)) return 0;
+                    return arr.reduce((sum, item) => sum + (item.count || 0), 0);
+                }
+
+                const totals = [
+                    safeTotal(invoice),
+                    safeTotal(ocity),
+                    safeTotal(periodic),
+                    safeTotal(permissions)
+                ];
+
+                const hasData = totals.some(total => total > 0);
+
+                if (!hasData) {
+                    ctx.style.display = 'none';
+                    ctx.closest('.chart-container').innerHTML =
+                        '<div class="empty-state"><i class="bi bi-pie-chart"></i><p>No data available for chart</p></div>';
+                    return;
+                }
+
+                ctx.style.display = 'block';
+                window._systemChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['InvoiceQ', 'Ocity', 'Periodic', 'Permissions'],
+                        datasets: [{
+                            data: totals,
+                            backgroundColor: [
+                                'rgba(14,165,233,0.8)',
+                                'rgba(245,158,11,0.8)',
+                                'rgba(16,185,129,0.8)',
+                                'rgba(99,102,241,0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(14,165,233,1)',
+                                'rgba(245,158,11,1)',
+                                'rgba(16,185,129,1)',
+                                'rgba(99,102,241,1)'
+                            ],
+                            borderWidth: 2,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                cornerRadius: 6,
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                        return `${label}: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            function showChartError() {
+                const charts = ['statusChart', 'systemChart'];
+                charts.forEach(chartId => {
+                    const element = document.getElementById(chartId);
+                    if (element) {
+                        element.style.display = 'none';
+                        const container = element.closest('.chart-container');
+                        if (container) {
+                            container.innerHTML = `
+                                <div class="empty-state">
+                                    <i class="bi bi-exclamation-triangle text-warning"></i>
+                                    <p>Failed to load chart data</p>
+                                    <small class="text-muted">Please try refreshing the page</small>
+                                </div>
+                            `;
+                        }
+                    }
+                });
+            }
+
+            // Run when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadCharts);
+            } else {
+                loadCharts();
+            }
+
+            // Optional: Refresh charts on window resize (with debounce)
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (window._statusChart || window._systemChart) {
+                        loadCharts();
+                    }
+                }, 250);
+            });
+
+        })();
+    </script>
+}

@@ -1,0 +1,130 @@
+﻿@model UserRequestVm
+@{
+    Layout = null; // مهم جداً للـ PDF
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Request Report</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-size: 14px;
+            margin: 25px;
+            color: #111;
+        }
+
+        h1, h2, h3, h4 {
+            margin: 0 0 10px;
+            color: #1d4ed8;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 16px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #f9fafb;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+
+        .label {
+            color: #6b7280;
+        }
+
+        .value {
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                font-size: 13px;
+            }
+
+            table th {
+                background: #e5e7eb;
+                font-weight: 700;
+            }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Request Report</h1>
+        <small>Generated on @DateTime.Now.ToString("yyyy-MM-dd HH:mm")</small>
+    </div>
+
+    <!-- Basic Info -->
+    <div class="section">
+        <h3>Basic Information</h3>
+        <div class="row"><span class="label">Request Number:</span> <span class="value">@Model.RequestNumber</span></div>
+        <div class="row"><span class="label">System:</span> <span class="value">@Model.SystemName</span></div>
+        <div class="row"><span class="label">Status:</span> <span class="value">@Model.Status</span></div>
+        <div class="row"><span class="label">Created:</span> <span class="value">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</span></div>
+       @*  @if (Model.UpdatedAt.HasValue)
+        {
+            <div class="row"><span class="label">Last Updated:</span> <span class="value">@Model.UpdatedAt.Value.ToString("yyyy-MM-dd HH:mm")</span></div>
+        } *@
+    </div>
+
+    <!-- Permission Info -->
+    <div class="section">
+        <h3>Permission Details</h3>
+        <div><strong>Details:</strong></div>
+        <div style="margin-top:6px; white-space:pre-wrap;">@Model.Details</div>
+    </div>
+
+    <!-- History -->
+    @if (Model.History != null && Model.History.Any())
+    {
+        <div class="section">
+            <h3>Approval History</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var h in Model.History.OrderByDescending(h => h.Timestamp))
+                    {
+                        <tr>
+                            <td>@h.Timestamp.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@h.Action</td>
+                            <td>@h.UserName</td>
+                            <td>@h.Notes</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+</body>
+</html>

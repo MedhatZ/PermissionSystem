@@ -1,0 +1,221 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using PermissionSystemWeb.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Reflection.PortableExecutable;
+using System.Security.Principal;
+using System.Text;
+using System.Text.Json;
+
+public class AccountController : Controller
+{
+    private readonly IHttpClientFactory _clientFactory;
+
+
+    public AccountController(IHttpClientFactory clientFactory)
+    {
+        _clientFactory = clientFactory;
+
+    }
+
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return RedirectToAction("LoginSSO");
+    }
+
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> LoginSSO()
+    {
+        try
+        {
+            // Get windows user
+            var full = WindowsIdentity.GetCurrent().Name; // SAPTCO\username
+            var username = full.Split('\\')[1];
+            if (username == "devnetadmin08" || username == "alim")
+                username = "baqirsm";
+
+            // LDAP Config
+            var cfg = new LdapCfg(
+                "SAPTCO.LOCAL",
+                "SAPTCO.LOCAL",
+                "",
+                "Srv_Adempupdate_Dev",
+                "Kvs8$$VWdkzS@67",
+                false
+            );
+
+            AdUser adUser = null;
+            bool ok = false;
+            string err = "";
+
+            if (IsInsideDomain())
+            {
+                // ========== TRY LDAP ==========
+                (ok, adUser, err) = LdapHelper.FindUser(cfg, "sAMAccountName", username);
+            }
+
+            // ========= STATIC FALLBACK =========
+            //if (!ok || adUser == null)
+            //{
+            //    // بديل لو شغال خارج الدومين
+            //    adUser = new AdUser
+            //    {
+            //        SamAccountName = "medhat.ali",
+            //        DisplayName = "Medhat Mohamed Ali",
+            //        Email = "medhatal@saptco.com.sa",
+            //        Title = "Senior Software Architect",
+            //        Department = "Information Technology Sector",
+            //        EmployeeId = "112233",
+            //        Manager = "STATIC" // علشان نعرف إن مفيش AD
+            //    };
+            //}
+
+            // ========= GET MANAGER FROM AD =========
+            AdUser? managerUser = null;
+
+            if (!string.IsNullOrWhiteSpace(adUser.Manager) && adUser.Manager != "STATIC")
+            {
+                var (okMgr, mUser, errMgr) =
+                    LdapHelper.FindUser(cfg, "distinguishedName", adUser.Manager);
+
+                if (okMgr) managerUser = mUser;
+            }
+
+           //  ========= STATIC MANAGER FALLBACK =========
+            //if (managerUser == null)
+            //{
+            //    managerUser = new AdUser
+            //    {
+            //        SamAccountName = "ralryyan",
+            //        DisplayName = "Raed M. ALryyan",
+            //        Email = "raed.alryyan@saptco.com.sa",
+            //        Title = "IT Manager",
+            //        Department = "Information Technology Sector",
+            //        EmployeeId = "623955"
+            //    };
+            //}
+
+            // send to backend
+            var client = _clientFactory.CreateClient("api");
+
+            var payload = new
+            {
+                User = new
+                {
+                    Username = adUser.SamAccountName,
+                    FullName = adUser.DisplayName,
+                    Email = adUser.Email,
+                    Title = adUser.Title,
+                    Department = adUser.Department,
+                    EmployeeID = adUser.EmployeeId,
+                    Manager = managerUser.EmployeeId,
+                    IsGM = adUser.Title?.Contains("GM") == true,
+                    DisplayName = adUser.DisplayName
+                }
+            };
+
+            var response = await client.PostAsJsonAsync("api/Auth/login-from-ad", payload);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // ✅ إذا الـ API رجع Unauthorized (المستخدم مش موجود)
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    return RedirectToAction("AccessDenied", "Account");
+                }
+                else
+                {
+                    return Content("Backend error: " + response.StatusCode);
+                }
+            }
+
+            var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+
+            // save session
+            HttpContext.Session.SetString("token", result.Token);
+            HttpContext.Session.SetString("username", result.Username);
+            HttpContext.Session.SetString("fullName", adUser.DisplayName);
+            HttpContext.Session.SetString("email", adUser.Email);
+            HttpContext.Session.SetString("employeeId", adUser.EmployeeId);
+
+
+            // ============= Extract claims ============
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(result.Token);
+
+            var exists = jwt.Claims.FirstOrDefault(c => c.Type == "exists")?.Value;
+            var employeeId = jwt.Claims.FirstOrDefault(c => c.Type == "employeeId")?.Value;
+            var dbUserId = jwt.Claims.FirstOrDefault(c => c.Type == "dbUserId")?.Value;
+
+            // حفظ الـ claims في الـ Session
+            HttpContext.Session.SetString("employeeId", employeeId ?? adUser.EmployeeId);
+            HttpContext.Session.SetString("dbUserId", dbUserId ?? "");
+
+            // ✅ إذا المستخدم مش موجود في الداتابيز → AccessDenied
+            if (exists == "false")
+            {
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
+            // ✅ إذا المستخدم موجود → Dashboard
+            return RedirectToAction("Index", "Dashboard");
+        }
+        catch (Exception ex)
+        {
+            // ✅ إذا حصل أي exception → AccessDenied
+            return RedirectToAction("AccessDenied", "Account");
+        }
+    }
+    bool IsInsideDomain()
+    {
+        try
+        {
+            // محاولة ترجمة الدومين
+            Dns.GetHostEntry("SAPTCO.LOCAL");
+            return true;
+        }
+        catch
+        {
+            return false; // برا الدومين
+        }
+    }
+
+
+    public static async Task<string> GetUserNameById(string employeeId)
+    {
+        var cfg = new LdapCfg(
+                  "SAPTCO.LOCAL",
+                  "SAPTCO.LOCAL",
+                  "",
+                  "Srv_Adempupdate_Dev",
+                  "Kvs8$$VWdkzS@67",
+                  false
+              );
+
+        string fullName;
+        var (ok, adUser, err) = LdapHelper.FindUser(cfg, "employeeID", employeeId);
+
+        if (!ok || adUser == null)
+            return null;
+
+        fullName = adUser.DisplayName;
+
+        return fullName;
+    }
+}
+

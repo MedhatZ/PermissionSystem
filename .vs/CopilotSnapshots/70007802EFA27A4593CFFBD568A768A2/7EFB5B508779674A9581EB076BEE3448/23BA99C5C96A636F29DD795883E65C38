@@ -1,0 +1,67 @@
+﻿using Microsoft.Extensions.Options;
+using PermissionSystemWeb.Models.ViewModels;
+using System.Net;
+using System.Net.Http.Headers;
+
+System.Net.ServicePointManager.SecurityProtocol =
+    SecurityProtocolType.Tls12 |
+    SecurityProtocolType.Tls11 |
+    SecurityProtocolType.Tls;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// MVC + Razor Views
+builder.Services.AddControllersWithViews();
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+builder.Services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<ApiSettings>>().Value);
+
+// Enable Sessions
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(8);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Get API Base URL from appsettings
+var apiUrl = builder.Configuration["ApiSettings:BaseUrl"];
+
+// HttpClient to call API
+builder.Services.AddHttpClient("api", client =>
+{
+    client.BaseAddress = new Uri(apiUrl);
+
+    // Necessary for SAPTCO servers / WAF / IIS
+    client.DefaultRequestHeaders.ExpectContinue = false;
+
+    // Required to avoid 500 errors for JSON posts
+    client.DefaultRequestHeaders.Accept.Clear();
+    client.DefaultRequestHeaders.Accept.Add(
+        new MediaTypeWithQualityHeaderValue("application/json"));
+
+    // SAPTCO WAF blocks requests without User-Agent
+    client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0");
+});
+
+// Cookie Authentication
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", config =>
+    {
+        config.LoginPath = "/Account/Login";
+    });
+
+var app = builder.Build();
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.UseSession();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Account}/{action=Login}/{id?}");
+
+app.Run();

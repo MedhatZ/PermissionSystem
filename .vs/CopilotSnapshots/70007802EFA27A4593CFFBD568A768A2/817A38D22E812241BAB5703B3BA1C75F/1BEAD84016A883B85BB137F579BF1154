@@ -1,0 +1,431 @@
+﻿@model UserRequestVm
+@{
+    ViewData["Title"] = "Request Details";
+
+    // Determine who the request is currently pending with (best-effort from available data)
+    string pendingWith = null;
+    if (Model != null)
+    {
+        if (Model.Status != null && Model.Status.Equals("Pending", System.StringComparison.OrdinalIgnoreCase))
+        {
+            pendingWith = Model.RequestedBy ?? Model.ApprovedBy;
+            if (string.IsNullOrEmpty(pendingWith) && Model.History != null && Model.History.Any())
+            {
+                pendingWith = Model.History.OrderByDescending(h => h.Timestamp).FirstOrDefault()?.UserName;
+            }
+        }
+        else
+        {
+            // if not pending, show the approver if available
+            pendingWith = Model.ApprovedBy;
+        }
+    }
+}
+
+<style>
+    /* Lightweight page-specific styles (UI only) */
+    .details-container {
+        max-width: 1100px;
+        margin: 18px auto;
+    }
+
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+        margin-bottom: 18px;
+    }
+
+    .card-header {
+        font-weight: 600;
+        background: transparent;
+        border-bottom: none;
+        padding: 16px 20px;
+        font-size: 1.05rem;
+        color: #111827;
+    }
+
+    .info-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .info-label {
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+
+    .info-value {
+        color: #111827;
+        font-weight: 600;
+    }
+
+    .status-badge {
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .st-pending {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .st-approved {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .st-rejected {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .permission-badge {
+        background: #eef2ff;
+        color: #4f46e5;
+        padding: 6px 10px;
+        border-radius: 6px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        display: inline-block;
+    }
+
+    .details-content {
+        white-space: pre-wrap;
+        color: #374151;
+    }
+
+    /* Timeline */
+    .history-timeline {
+        padding: 14px 20px;
+    }
+
+    .timeline-item {
+        border-left: 3px solid #e6e9ef;
+        padding: 12px 16px 12px 20px;
+        margin-bottom: 12px;
+        position: relative;
+        background: #fafafa;
+        border-radius: 6px;
+    }
+
+    .timeline-date {
+        font-size: 0.85rem;
+        color: #6b7280;
+        margin-bottom: 6px;
+    }
+
+    .timeline-action {
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 6px;
+    }
+
+    .timeline-user {
+        font-size: 0.9rem;
+        color: #374151;
+    }
+
+    .timeline-notes {
+        margin-top: 8px;
+        color: #374151;
+        font-size: 0.95rem;
+    }
+
+    /* Comments */
+    .comment-item {
+        padding: 12px 16px;
+        border-top: 1px solid #f3f4f6;
+    }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #111827;
+    }
+
+    .comment-text {
+        color: #374151;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid #e6eef8;
+        color: #0f172a;
+        text-decoration: none;
+    }
+
+    /* 🔵 New styles for additional fields */
+    .request-type-badge {
+        background: #e0e7ff;
+        color: #3730a3;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+    .update-type-badge {
+        background: #f0f9ff;
+        color: #0369a1;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="details-container">
+    <div class="page-header" style="margin-bottom:12px;">
+        <h1 class="page-title" style="margin:0; font-size:1.4rem;">
+            <i class="bi bi-file-text" style="color: #3b82f6; margin-right:8px;"></i>
+            Request Details
+        </h1>
+        <p class="page-subtitle" style="color:#6b7280; margin-top:6px;">View complete information and history for this permission request</p>
+    </div>
+
+    <div style="display:flex; gap:18px; flex-wrap:wrap;">
+        <!-- Left column (summary & permission) -->
+        <div class="left-col">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-info-circle" style="margin-right:8px;color:#3b82f6;"></i> Basic Information</div>
+
+                <div class="info-item">
+                    <span class="info-label">Request Number:</span>
+                    <span class="info-value">@Model.RequestNumber</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">System:</span>
+                    <span class="info-value">@Model.SystemName</span>
+                </div>
+
+                <!-- 🔵 Request Type -->
+                <div class="info-item">
+                    <span class="info-label">Request Type:</span>
+                    <span class="info-value">
+                        <span class="request-type-badge">@Model.RequestType</span>
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Status:</span>
+                    <span class="info-value">
+                        <span class="status-badge st-@Model.Status.ToLower()">@Model.Status</span>
+                    </span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Created:</span>
+                    <span class="info-value">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</span>
+                </div>
+
+                <div class="info-item">
+                    <span class="info-label">Last Updated:</span>
+                    <span class="info-value">
+                        @(Model.UpdatedAt.HasValue
+                                                ? Model.UpdatedAt.Value.ToString("yyyy-MM-dd HH:mm")
+                                                : "Not updated yet")
+                    </span>
+                </div>
+
+                <!-- 🔵 User Modification Date -->
+                @if (Model.UserModificationDate.HasValue)
+                {
+                    <div class="info-item">
+                        <span class="info-label">User Modification:</span>
+                        <span class="info-value">@Model.UserModificationDate.Value.ToString("yyyy-MM-dd HH:mm")</span>
+                    </div>
+                }
+
+                <!-- 🔵 Update Date -->
+                @if (Model.UpdateDate.HasValue)
+                {
+                    <div class="info-item">
+                        <span class="info-label">Update Date:</span>
+                        <span class="info-value">@Model.UpdateDate.Value.ToString("yyyy-MM-dd HH:mm")</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(pendingWith))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Pending with:</span>
+                        <span class="info-value">@pendingWith</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.RequestedBy))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Requested By:</span>
+                        <span class="info-value">@Model.RequestedBy</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.ApprovedBy))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Approved By:</span>
+                        <span class="info-value">@Model.ApprovedBy</span>
+                    </div>
+                }
+
+                <!-- 🔵 Created By Username -->
+                @if (!string.IsNullOrEmpty(Model.CreatedByUsername))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Created By:</span>
+                        <span class="info-value">@Model.CreatedByUsername</span>
+                    </div>
+                }
+
+                <!-- 🔵 Manager Username -->
+                @if (!string.IsNullOrEmpty(Model.ManagerUsername))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Manager:</span>
+                        <span class="info-value">@Model.ManagerUsername</span>
+                    </div>
+                }
+            </div>
+
+            <div class="card">
+                <div class="card-header"><i class="bi bi-shield-check" style="margin-right:8px;color:#10b981;"></i> Permission Details</div>
+
+                <!-- 🔵 Task Detail -->
+                @if (!string.IsNullOrEmpty(Model.TaskDetail))
+                {
+                    <div class="info-item" style="flex-direction:column; align-items:flex-start; gap:8px;">
+                        <span class="info-label">Task Detail:</span>
+                        <div class="info-value" style="width:100%;">
+                            <div class="details-content">@Model.TaskDetail</div>
+                        </div>
+                    </div>
+                }
+
+                <!-- 🔵 Update Type -->
+                @if (!string.IsNullOrEmpty(Model.UpdateType))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Update Type:</span>
+                        <span class="info-value">
+                            <span class="update-type-badge">@Model.UpdateType</span>
+                        </span>
+                    </div>
+                }
+
+                <!-- 🔵 Role Modified -->
+                @if (!string.IsNullOrEmpty(Model.RoleModified))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Role Modified:</span>
+                        <span class="info-value">@Model.RoleModified</span>
+                    </div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.PermissionLevel))
+                {
+                    <div class="info-item">
+                        <span class="info-label">Permission Level:</span>
+                        <span class="info-value">@Model.PermissionLevel</span>
+                    </div>
+                }
+
+                @if (Model.Permissions != null && Model.Permissions.Any())
+                {
+                    <div class="info-item" style="flex-direction:column; align-items:flex-start; gap:8px;">
+                        <span class="info-label">Permissions:</span>
+                        <div class="info-value" style="display:flex; flex-wrap:wrap;">
+                            @foreach (var permission in Model.Permissions)
+                            {
+                                <span class="permission-badge">@permission</span>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <div class="info-item" style="border-bottom: none; flex-direction:column; align-items:flex-start;">
+                    <span class="info-label">Details:</span>
+                    <div class="info-value" style="width:100%;">
+                        <div class="details-content">@Model.Details</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right column (history + comments) -->
+        <div style="flex:1; min-width:360px;">
+            <div class="card">
+                <div class="card-header"><i class="bi bi-clock-history" style="margin-right:8px;color:#3b82f6;"></i> Request History</div>
+
+                @if (Model.History != null && Model.History.Any())
+                {
+                    <div class="history-timeline">
+                        @foreach (var historyItem in Model.History.OrderByDescending(h => h.Timestamp))
+                        {
+                            <div class="timeline-item">
+                                <div class="timeline-date">@historyItem.Timestamp.ToString("yyyy-MM-dd HH:mm")</div>
+                                <div class="timeline-action">@historyItem.Action</div>
+                                <div class="timeline-user">By: @historyItem.UserName</div>
+                                @if (!string.IsNullOrEmpty(historyItem.Notes))
+                                {
+                                    <div class="timeline-notes">@historyItem.Notes</div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state" style="padding:20px; text-align:center; color:#6b7280;">
+                        <i class="bi bi-clock" style="font-size:2rem; margin-bottom:8px;"></i>
+                        <p>No history available for this request</p>
+                    </div>
+                }
+            </div>
+
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                <div class="card comments-section">
+                    <div class="card-header"><i class="bi bi-chat-left-text" style="margin-right:8px;color:#6366f1;"></i> Comments (@Model.Comments.Count)</div>
+
+                    @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
+                    {
+                        <div class="comment-item">
+                            <div class="comment-header">
+                                <span class="comment-user">@comment.UserName</span>
+                                <span class="comment-date">@comment.CreatedAt.ToString("yyyy-MM-dd HH:mm")</span>
+                            </div>
+                            <div class="comment-text">@comment.Text</div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/Requests/Index" class="btn-back">
+            <i class="bi bi-arrow-left"></i>
+            Back to My Requests
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Add any interactive functionality here
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Request details page loaded');
+        });
+    </script>
+}

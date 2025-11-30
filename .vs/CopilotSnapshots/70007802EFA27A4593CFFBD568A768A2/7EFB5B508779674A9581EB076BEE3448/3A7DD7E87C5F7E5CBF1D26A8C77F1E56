@@ -1,0 +1,15 @@
+﻿{
+  "ApiSettings": {
+    "BaseUrl": "https://apptest.saptco.com.sa/PermissionSystemAPI/"
+    //"BaseUrl": "https://localhost:7248/"
+
+  },
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

@@ -1,0 +1,242 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using PermissionSystemWeb.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Reflection.PortableExecutable;
+using System.Security.Principal;
+using System.Text;
+using System.Text.Json;
+using Microsoft.Extensions.Logging;
+
+public class AccountController : Controller
+{
+    private readonly IHttpClientFactory _clientFactory;
+    private readonly ILogger<AccountController> _logger;
+
+
+    public AccountController(IHttpClientFactory clientFactory, ILogger<AccountController> logger)
+    {
+        _clientFactory = clientFactory;
+        _logger = logger;
+
+    }
+
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return RedirectToAction("LoginSSO");
+    }
+
+    [HttpGet]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login");
+    }
+    [HttpGet]
+    public async Task<IActionResult> LoginSSO()
+    {
+        try
+        {
+            _logger.LogInformation("🔐 Starting LoginSSO");
+
+            // Get Windows user (SAPTCO\username)
+            var full = HttpContext.User.Identity?.Name;
+
+            if (string.IsNullOrWhiteSpace(full) || !full.Contains("\\"))
+            {
+                _logger.LogWarning("⚠ لم يتم التعرف على اسم المستخدم من HttpContext");
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
+            var username = full.Split('\\')[1];
+            _logger.LogDebug("Detected Windows user: {Full} -> {Username}", full, username);
+           
+
+            // Override for dev accounts
+            if (username == "devnetadmin08" || username == "alim")
+                username = "baqirsm";
+
+            // LDAP Configuration
+            var cfg = new LdapCfg(
+                "SAPTCO.LOCAL",
+                "SAPTCO.LOCAL",
+                "",
+                "Srv_Adempupdate_Dev",
+                "Kvs8$$VWdkzS@67",
+                false
+            );
+
+            // Prepare variables
+            AdUser adUser = null;
+            AdUser? managerUser = null;
+            bool ok = false;
+            string err = "";
+
+            if (IsInsideDomain())
+            {
+                // Try LDAP Lookup
+                _logger.LogInformation("Attempting LDAP lookup for {Username}", username);
+                (ok, adUser, err) = LdapHelper.FindUser(cfg, "sAMAccountName", username);
+                _logger.LogInformation("LDAP result for {Username}: ok={Ok}, error={Err}", username, ok, err);
+
+                // ❗ Check if user was found
+                if (!ok || adUser == null)
+                {
+                    _logger.LogWarning("❌ LDAP lookup failed or user not found. Redirecting to AccessDenied.");
+                    return RedirectToAction("AccessDenied", "Account");
+                }
+
+                // Try to resolve manager (optional)
+                if (!string.IsNullOrWhiteSpace(adUser.Manager) && adUser.Manager != "STATIC")
+                {
+                    _logger.LogInformation("Attempting to resolve manager for {Username}", username);
+                    var (okMgr, mUser, errMgr) = LdapHelper.FindUser(cfg, "distinguishedName", adUser.Manager);
+
+                    if (okMgr && mUser != null)
+                    {
+                        managerUser = mUser;
+                        _logger.LogInformation("Manager resolved: {ManagerName}", managerUser.DisplayName);
+                    }
+                    else
+                    {
+                        _logger.LogWarning("Manager lookup failed for user {Username}. Error: {ErrMgr}", username, errMgr);
+                    }
+                }
+            }
+            else
+            {
+                // Not inside domain: use static JSON-like fallback data so developer can login locally
+                _logger.LogInformation("Not inside domain - using static fallback JSON for user {Username}", username);
+
+                // Static user data (modify as needed). This simulates the AD user JSON.
+                adUser = new AdUser
+                {
+                    SamAccountName = username,
+                    DisplayName = "Static User",
+                    Email = "static.user@example.com",
+                    Title = "Developer",
+                    Department = "IT",
+                    EmployeeId = "999999",
+                    Manager = "STATIC"
+                };
+
+                // Optional static manager
+                managerUser = new AdUser
+                {
+                    SamAccountName = "static.manager",
+                    DisplayName = "Static Manager",
+                    Email = "manager@example.com",
+                    Title = "Manager",
+                    Department = "IT",
+                    EmployeeId = "123456"
+                };
+            }
+
+            // Prepare HTTP Client and payload
+            var client = _clientFactory.CreateClient("api");
+
+            var payload = new
+            {
+                User = new
+                {
+                    Username = adUser.SamAccountName,
+                    FullName = adUser.DisplayName,
+                    Email = adUser.Email,
+                    Title = adUser.Title,
+                    Department = adUser.Department,
+                    EmployeeID = adUser.EmployeeId,
+                    Manager = managerUser?.EmployeeId,  // 👈 Safe access
+                    IsGM = adUser.Title?.Contains("GM") == true,
+                    DisplayName = adUser.DisplayName
+                }
+            };
+
+            _logger.LogDebug("Sending login payload for {Username} to backend API", adUser.SamAccountName);
+
+            var response = await client.PostAsJsonAsync("api/Auth/login-from-ad", payload);
+            _logger.LogInformation("Backend API responded with status {StatusCode}", response.StatusCode);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    _logger.LogWarning("User {Username} unauthorized by backend", adUser.SamAccountName);
+                    return RedirectToAction("AccessDenied", "Account");
+                }
+
+                _logger.LogError("Unexpected backend response: {StatusCode}", response.StatusCode);
+                return Content("Backend error: " + response.StatusCode);
+            }
+
+            // Read token response
+            var result = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+
+            // Save session values
+            HttpContext.Session.SetString("token", result.Token);
+            HttpContext.Session.SetString("username", result.Username);
+            HttpContext.Session.SetString("fullName", adUser.DisplayName);
+            HttpContext.Session.SetString("email", adUser.Email);
+            HttpContext.Session.SetString("employeeId", adUser.EmployeeId);
+
+            // Read JWT claims
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(result.Token);
+
+            var exists = jwt.Claims.FirstOrDefault(c => c.Type == "exists")?.Value;
+            var employeeId = jwt.Claims.FirstOrDefault(c => c.Type == "employeeId")?.Value;
+            var dbUserId = jwt.Claims.FirstOrDefault(c => c.Type == "dbUserId")?.Value;
+
+            HttpContext.Session.SetString("employeeId", employeeId ?? adUser.EmployeeId);
+            HttpContext.Session.SetString("dbUserId", dbUserId ?? "");
+
+            _logger.LogInformation("✅ User {Username} logged in. exists={Exists}, employeeId={EmployeeId}", adUser.SamAccountName, exists, employeeId);
+
+            if (exists == "false")
+            {
+                _logger.LogWarning("❌ User {Username} not found in DB. Redirecting to AccessDenied.", adUser.SamAccountName);
+                return RedirectToAction("AccessDenied", "Account");
+            }
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Unhandled exception in LoginSSO");
+            return RedirectToAction("AccessDenied", "Account");
+        }
+    }
+
+
+    public static async Task<string> GetUserNameById(string employeeId)
+    {
+        // Note: Can't use instance logger in static method. Consider making non-static if logging needed.
+
+        var cfg = new LdapCfg(
+                  "SAPTCO.LOCAL",
+                  "SAPTCO.LOCAL",
+                  "",
+                  "Srv_Adempupdate_Dev",
+                  "Kvs8$$VWdkzS@67",
+                  false
+              );
+
+        string fullName;
+        var (ok, adUser, err) = LdapHelper.FindUser(cfg, "employeeID", employeeId);
+
+        if (!ok || adUser == null)
+            return null;
+
+        fullName = adUser.DisplayName;
+
+        return fullName;
+    }
+}
+
